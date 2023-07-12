@@ -1,6 +1,6 @@
 package io.rieble.spring.flyway;
 
-import org.springframework.context.annotation.Import;
+import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -11,7 +11,7 @@ import java.lang.annotation.Target;
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
-@Import(AdditionalFlywayLocationsConfiguration.class)
+@ImportAutoConfiguration(AdditionalFlywayLocationsConfiguration.class)
 public @interface AdditionalFlywayLocations {
     String[] value() default {};
 }
