@@ -1,4 +1,4 @@
-package io.rieble.spring.flyway;
+package de.gcoding.spring.flyway;
 
 import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 

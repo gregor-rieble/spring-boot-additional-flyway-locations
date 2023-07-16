@@ -1,4 +1,4 @@
-package io.rieble.spring.flyway;
+package de.gcoding.spring.flyway;
 
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;

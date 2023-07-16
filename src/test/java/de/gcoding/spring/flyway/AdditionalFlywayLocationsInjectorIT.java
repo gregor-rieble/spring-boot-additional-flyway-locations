@@ -1,4 +1,4 @@
-package io.rieble.spring.flyway;
+package de.gcoding.spring.flyway;
 
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
