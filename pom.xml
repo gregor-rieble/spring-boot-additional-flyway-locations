@@ -6,8 +6,33 @@
     <groupId>de.gcoding</groupId>
     <artifactId>spring-boot-additional-flyway-locations</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>spring-boot-additional-flyway-locations</name>
-    <description>spring-boot-additional-flyway-locations</description>
+
+    <name>${project.groupId}:${project.artifactId}</name>
+    <description>Allows to programmatically add additional flyway locations by the means of annotations</description>
+    <url>https://github.com/gregor-rieble/spring-boot-additional-flyway-locations</url>
+
+    <licenses>
+        <license>
+            <name>MIT License</name>
+            <url>https://opensource.org/license/mit/</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <name>Gregor Rieble</name>
+            <email>gregor.rieble@gcoding.de</email>
+            <url>https://github.com/gregor-rieble</url>
+        </developer>
+    </developers>
+
+    <!-- @formatter:off -->
+    <scm>
+        <connection>scm:git:git://github.com/gregor-rieble/spring-boot-additional-flyway-locations.git</connection>
+        <developerConnection>scm:git:ssh://github.com:gregor-rieble/spring-boot-additional-flyway-locations.git</developerConnection>
+        <url>https://github.com/gregor-rieble/spring-boot-additional-flyway-locations/tree/master</url>
+    </scm>
+    <!-- @formatter:on -->
 
     <properties>
         <spring-boot.version>3.1.1</spring-boot.version>
@@ -90,4 +115,76 @@
             </plugin>
         </plugins>
     </build>
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+    </distributionManagement>
+
+    <profiles>
+        <profile>
+            <id>release</id>
+            <build>
+                <plugins>
+
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <version>3.3.0</version>
+                        <executions>
+                            <execution>
+                                <id>attach-sources</id>
+                                <goals>
+                                    <goal>jar-no-fork</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <version>3.5.0</version>
+                        <executions>
+                            <execution>
+                                <id>attach-javadocs</id>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>3.1.0</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                                <configuration>
+                                    <keyname>gregor.rieble</keyname>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.sonatype.plugins</groupId>
+                        <artifactId>nexus-staging-maven-plugin</artifactId>
+                        <version>1.6.13</version>
+                        <extensions>true</extensions>
+                        <configuration>
+                            <serverId>ossrh</serverId>
+                            <nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
+                            <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>
