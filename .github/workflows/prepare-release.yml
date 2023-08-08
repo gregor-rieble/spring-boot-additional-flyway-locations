@@ -1,0 +1,52 @@
+name: Prepare Release
+
+on:
+  push:
+    branches: [ "release/**" ]
+
+jobs:
+  prepare-release:
+    name: Prepare Release
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Check if releasable
+        id: check_releasable
+        run: |
+          GROUP_ID=$(mvn help:evaluate -Dexpression=project.groupId -q -DforceStdout)
+          ARTIFACT_ID=$(mvn help:evaluate -Dexpression=project.artifactId -q -DforceStdout)
+          NEW_VERSION=${GITHUB_REF##*/}
+          
+          mvn dependency:get -Dartifact=$GROUP_ID:$ARTIFACT_ID:$NEW_VERSION
+          if [ "$?" != "0" ]; then
+            >&2 echo "Version to be released already exists in maven central"
+            exit $?
+          fi
+
+      - name: Set Release version
+        run: |
+          CURRENT_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
+          EXPECTED_VERSION=${GITHUB_REF##*/}
+          
+          if [ "$CURRENT_VERSION" = "$EXPECTED_VERSION" ]; then
+            echo "Version is already set correctly, skipping"
+          else
+            echo "Setting version to $EXPECTED_VERSION"
+            mvn versions:set -DnewVersion=$EXPECTED_VERSION
+          
+            sed -i "s/<version>$CURRENT_VERSION<\/version>/<version>$EXPECTED_VERSION<\/version>/g" README.md
+          
+            git config --global user.name "GitHub Workflow Runner"
+            git config --global user.email 'github-workflow-runner@gcoding.de'
+            git commit -am "[AUTO] Set version to $EXPECTED_VERSION"
+            git push
+          fi
