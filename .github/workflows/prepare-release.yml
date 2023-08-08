@@ -2,7 +2,8 @@ name: Prepare Release
 
 on:
   push:
-    branches: [ "release/**" ]
+    branches:
+      - "release/**"
 
 jobs:
   prepare-release:
@@ -20,16 +21,18 @@ jobs:
           cache: maven
 
       - name: Check if releasable
-        id: check_releasable
         run: |
           GROUP_ID=$(mvn help:evaluate -Dexpression=project.groupId -q -DforceStdout)
           ARTIFACT_ID=$(mvn help:evaluate -Dexpression=project.artifactId -q -DforceStdout)
           NEW_VERSION=${GITHUB_REF##*/}
           
-          mvn dependency:get -Dartifact=$GROUP_ID:$ARTIFACT_ID:$NEW_VERSION
-          if [ "$?" != "0" ]; then
+          RELEASABLE=0
+          mvn dependency:get -Dartifact=$GROUP_ID:$ARTIFACT_ID:$NEW_VERSION || RELEASABLE=1
+          if [ "RELEASABLE" == "0" ]; then
             >&2 echo "Version to be released already exists in maven central"
-            exit $?
+            exit 1
+          else
+            echo "Success: Artifact is releasable, no artifact with version $NEW_VERSION was found in maven central"
           fi
 
       - name: Set Release version
@@ -47,6 +50,15 @@ jobs:
           
             git config --global user.name "GitHub Workflow Runner"
             git config --global user.email 'github-workflow-runner@gcoding.de'
-            git commit -am "[AUTO] Set version to $EXPECTED_VERSION"
+            git commit -am "Bump version to $EXPECTED_VERSION"
             git push
           fi
+          
+          echo "RELEASE_VERSION=$EXPECTED_VERSION" >> "$GITHUB_ENV"
+
+      - name: Create Release PR
+        uses: repo-sync/pull-request@v2
+        with:
+          destination_branch: "main"
+          pr_title: "Release ${{ env.RELEASE_VERSION }}"
+          pr_template: ".github/RELEASE_PR_TEMPLATE.md"
