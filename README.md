@@ -20,7 +20,7 @@ In a custom spring boot starter project, add the following dependency to your
 <dependency>
     <groupId>de.gcoding</groupId>
     <artifactId>spring-boot-additional-flyway-locations</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0</version>
 </dependency>
 ```
 
@@ -32,7 +32,7 @@ project to decide whether he wants the scripts to be loaded automatically:
 <dependency>
     <groupId>de.gcoding</groupId>
     <artifactId>spring-boot-additional-flyway-locations</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0</version>
     <scope>provided</scope>
 </dependency>
 ```
