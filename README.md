@@ -1,6 +1,7 @@
 # spring-boot-additional-flyway-locations
 
-[![Java CI with Maven](https://github.com/gregor-rieble/spring-boot-additional-flyway-locations/actions/workflows/deploy-snapshot.yml/badge.svg)](https://github.com/gregor-rieble/spring-boot-additional-flyway-locations/actions/workflows/deploy-snapshot.yml)
+[![Release](https://github.com/gregor-rieble/spring-boot-additional-flyway-locations/actions/workflows/release.yml/badge.svg)](https://github.com/gregor-rieble/spring-boot-additional-flyway-locations/actions/workflows/release.yml)
+[![Build & Deploy SNAPSHOT](https://github.com/gregor-rieble/spring-boot-additional-flyway-locations/actions/workflows/deploy-snapshot.yml/badge.svg)](https://github.com/gregor-rieble/spring-boot-additional-flyway-locations/actions/workflows/deploy-snapshot.yml)
 
 ## Introduction
 
