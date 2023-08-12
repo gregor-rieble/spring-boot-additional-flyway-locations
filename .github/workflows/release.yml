@@ -50,11 +50,11 @@ jobs:
         with:
           commit_message: Release ${{ github.event.inputs.releaseVersion }}
 
-      #      - name: Generate changelog
-      #        id: changelog
-      #        uses: metcalfc/changelog-generator@v4.1.0
-      #        with:
-      #          myToken: ${{ secrets.GITHUB_TOKEN }}
+      - name: Generate changelog
+        id: changelog
+        uses: metcalfc/changelog-generator@v4.1.0
+        with:
+          myToken: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Create GitHub Release
         uses: ncipollo/release-action@v1
@@ -73,8 +73,8 @@ jobs:
             </dependencies>
             ```
 
-          #            ### Things that changed in this release
-          #            ${{ steps.changelog.outputs.changelog }}
+            ### Things that changed in this release
+            ${{ steps.changelog.outputs.changelog }}
 
       - name: Set next snapshot version
         run: mvn -B --no-transfer-progress versions:set -DnewVersion=${{ github.event.inputs.nextSnapshot }}
