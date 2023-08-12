@@ -5,7 +5,7 @@
 
     <groupId>de.gcoding</groupId>
     <artifactId>spring-boot-additional-flyway-locations</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.1</version>
 
     <name>${project.groupId}:${project.artifactId}</name>
     <description>Allows to programmatically add additional flyway locations by the means of annotations</description>
