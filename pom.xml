@@ -30,7 +30,7 @@
     <scm>
         <connection>scm:git:git://github.com/gregor-rieble/spring-boot-additional-flyway-locations.git</connection>
         <developerConnection>scm:git:ssh://github.com:gregor-rieble/spring-boot-additional-flyway-locations.git</developerConnection>
-        <url>https://github.com/gregor-rieble/spring-boot-additional-flyway-locations/tree/master</url>
+        <url>https://github.com/gregor-rieble/spring-boot-additional-flyway-locations/tree/main</url>
     </scm>
     <!-- @formatter:on -->
 
